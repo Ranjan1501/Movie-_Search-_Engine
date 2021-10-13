@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<style>
+  input {
+    width: 200px;
+  }
+
+  #movies {
+    height: 200px;
+    width: 206px;
+    border: 1px solid black;
+    overflow: scroll;
+    border-top: none;
+  }
+  #search{
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20%;
+       
+    gap: 5%;
+    margin: 20px;
+    height:600px;
+    
+  }
+  #search img{
+    width:100%;
+    height:200px; 
+    margin: 2%;
+  }
+
+</style>
+
+<body>
+  <h3>Movie Search Engine</h3>
+  <input oninput="main()" type="text" id="movie" placeholder="Enter movie name" />
+
+  <div id="movies"></div>
+
+  <div id="search"></div>
+
+  <div id="error"></div>
+</body>
+
+</html>
+<script>
+
+  // Search movie
+  let movies_div = document.getElementById("movies");
+
+  async function searchMovie(movie_name) {
+    try {
+      let res = await fetch(`https://www.omdbapi.com/?&plot=full&apikey=eb061700&s=${movie_name}`);
+
+      let data = await res.json();
+      return data;
+
+
+    } catch (e) {
+        let div = document.createElement("div"); 
+        let error = document.getElementById("error"); 
+        let img=document.createElement("img");
+        img.src="https://i.giphy.com/media/8L0Pky6C83SzkzU55a/giphy.webp";
+        div.append(img); 
+    error.append(div); 
+    console.log(error)
+    }
+
+  }
+  //  searchMovie("black"); 
+  let search = document.getElementById("search");
+
+  function appendMovies(movies) {
+
+    if (movies === undefined) {
+      return false;
+    }
+    movies_div.innerHTML = null;
+    // traversing through all movies
+    movies.forEach(function (movie) {
+      // console(movie.Title); 
+
+      let movie_title = document.createElement("p");
+
+      movie_title.innerText = movie.Title
+
+      let img= document.createElement("img");
+
+     img.src=movie.Poster; 
+
+     let year = document.createElement("p"); 
+
+     year.innerHTML=movie.Year; 
+
+      movies_div.append(movie_title);  // search box searching by tittle 
+      // appendign movies tittle to dom
+      let div = document.createElement("div");
+
+      div.append(img,movie_title, year);
+      search.append(div);
+
+    });
+  }
+
+  
+  async function main() {     // searchMovie is async function
+    let name = document.getElementById("movie").value;
+
+
+    //get searchMoviename
+
+    if (name.length < 3) {
+      return false;
+
+    }
+    let res = await searchMovie(name);
+
+
+    let movies_data = res.Search;
+
+    appendMovies(movies_data);
+
+   console.log("res:", res);
+
+  }
+
+
+</script>
