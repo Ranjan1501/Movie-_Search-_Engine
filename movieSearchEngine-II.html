@@ -20,21 +20,31 @@
     overflow: scroll;
     border-top: none;
   }
-  #search{
+
+  #search {
     display: grid;
     grid-template-columns: 20% 20% 20% 20%;
-       
+
     gap: 5%;
     margin: 20px;
-    height:600px;
-    
+    height: 600px;
+
   }
-  #search img{
-    width:100%;
-    height:200px; 
+
+  #search img {
+    width: 100%;
+    height: 200px;
     margin: 2%;
   }
 
+  #error {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20%;
+    gap: 5%;
+    margin: 20px;
+    height: 600px;
+
+  }
 </style>
 
 <body>
@@ -53,6 +63,7 @@
 
   // Search movie
   let movies_div = document.getElementById("movies");
+  let error = document.getElementById("error");
 
   async function searchMovie(movie_name) {
     try {
@@ -63,13 +74,10 @@
 
 
     } catch (e) {
-        let div = document.createElement("div"); 
-        let error = document.getElementById("error"); 
-        let img=document.createElement("img");
-        img.src="https://i.giphy.com/media/8L0Pky6C83SzkzU55a/giphy.webp";
-        div.append(img); 
-    error.append(div); 
-    console.log(error)
+      let img = document.createElement("img");
+      img.src = "https://image.shutterstock.com/shutterstock/photos/577933447/display_1500/stock-vector--error-page-not-found-isolated-in-white-background-577933447.jpg";
+
+      error.append(img, e);
     }
 
   }
@@ -90,25 +98,25 @@
 
       movie_title.innerText = movie.Title
 
-      let img= document.createElement("img");
+      let img = document.createElement("img");
 
-     img.src=movie.Poster; 
+      img.src = movie.Poster;
 
-     let year = document.createElement("p"); 
+      let year = document.createElement("p");
 
-     year.innerHTML=movie.Year; 
+      year.innerHTML = movie.Year;
 
       movies_div.append(movie_title);  // search box searching by tittle 
       // appendign movies tittle to dom
       let div = document.createElement("div");
 
-      div.append(img,movie_title, year);
+      div.append(img, movie_title, year);
       search.append(div);
 
     });
   }
 
-  
+
   async function main() {     // searchMovie is async function
     let name = document.getElementById("movie").value;
 
@@ -126,7 +134,7 @@
 
     appendMovies(movies_data);
 
-   console.log("res:", res);
+    console.log("res:", res);
 
   }
 
