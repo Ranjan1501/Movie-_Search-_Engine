@@ -49,7 +49,7 @@
 
 <body>
     <h3>Movie Search Engine</h3>
-    <input oninput="debounce(main,1000)" type="text" id="movie" placeholder="Enter movie name" />
+    <input oninput="debounce(main,2000)" type="text" id="movie" placeholder="Enter movie name" />
 
     <div id="movies"></div>
 
@@ -68,7 +68,7 @@
     let search = document.getElementById("search");
     async function searchMovie(movie_name) {
         try {
-            let res = await fetch(`https://www.omdbapi.com/?&plot=full&apikey=eb061700&s=${movie_name}`);
+            let res = await fetch(`http://www.omdbapi.com/?&plot=full&apikey=eb061700&s=${movie_name}`);
 
             let data = await res.json();
             return data;
@@ -105,16 +105,28 @@
 
             let year = document.createElement("p");
 
+            let rating = document.createElement("p").textContent = movie.imdbID
+
+            let btn = document.createElement("button");
+
+            btn.innerText = "Watch Now"
+
+            btn.onclick = function () {
+                showMovie(movie);
+                window.location.href = "movie-II.html"; 
+            }
+
+
             year.innerHTML = movie.Year;
             let div = document.createElement("div");
 
-            div.append(img, movie_title, year); // append to show movies 
+
+            div.append(img, movie_title, year, btn); // append to show movies 
 
             search.append(div);
             movies_div.append(movie_title);  // search box searching by tittle 
             // appendign movies tittle to dom
-          
-           
+
 
         });
 
@@ -155,4 +167,60 @@
         }, time)
 
     }
+    if (localStorage.getItem("list") === null) {
+        localStorage.setItem("list", JSON.stringify([]));
+    }
+
+    function showMovie(movie) {
+        let arr = JSON.parse(localStorage.getItem("list"));
+        arr.push(movie)
+
+        localStorage.setItem("list", JSON.stringify(arr));
+    }
+
+    
+
+// if (movies === undefined) {
+//     return false;
+// }
+// movies_div.innerHTML = null;
+// // traversing through all movies
+// movies.forEach(function (movie) {
+//     // console(movie.Title); 
+
+//     let movie_title = document.createElement("p");
+
+//     movie_title.innerText = movie.Title
+
+//     let img = document.createElement("img");
+
+//     img.src = movie.Poster;
+
+//     let year = document.createElement("p");
+
+//     let rating = document.createElement("p").textContent = movie.imdbID
+
+//     let btn = document.createElement("button");
+
+//     btn.innerText = "Watch Now"
+
+//     btn.onclick = function () {
+//         showMovie(movie);
+//     }
+
+
+//     year.innerHTML = movie.Year;
+//     let div = document.createElement("div");
+
+
+//     div.append(img, movie_title, year, btn); // append to show movies 
+
+//     search.append(div);
+//     movies_div.append(movie_title);  // search box searching by tittle 
+//     // appendign movies tittle to dom
+
+
+// });
+
+// }
 </script>
