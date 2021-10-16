@@ -1,0 +1,42 @@
+body { background-color: darkslategrey;
+    color: white; 
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font: size 22px;
+    font-weight: 500; 
+}
+input {
+    width: 200px;
+}
+
+#movies {
+    height: 200px;
+    width: 206px;
+    border: 1px solid black;
+    overflow: scroll;
+    border-top: none;
+}
+
+#search {
+    display: grid;
+    grid-template-columns: 23% 23% 23% 23%;
+    gap: 3%;
+    margin: 20px;
+    height: 600px;
+
+}
+
+#search img {
+    width: 100%;
+    height: 200px;
+    margin: 2%;
+}
+
+#error {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20%;
+
+    gap: 5%;
+    margin: 20px;
+    height: 600px;
+
+}
