@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<style>
+    body { background-color: darkslategrey;
+        color: white; 
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font: size 22px;
+        font-weight: 500; 
+   
+    }
+    input {
+        width: 200px;
+    }
+
+    #movies {
+        height: 200px;
+        width: 206px;
+        border: 1px solid black;
+        overflow: scroll;
+        border-top: none;
+    }
+
+    #search {
+        display: flex;
+        width: 100%;
+        margin: 20px;
+        height: 600px;
+
+    }
+
+    #search img {
+        width: 50%;
+        height: 50%;
+        margin: 2%;
+    }
+
+    #error {
+        display: grid;
+        grid-template-columns: 20% 20% 20% 20%;
+
+        gap: 5%;
+        margin: 20px;
+        height: 600px;
+
+    }
+</style>
+
+<body>
+    <h3>Movie Search Engine</h3>
+    <input window.location.href="movies-III.html" oninput="" type="text" id="movie" placeholder="Enter movie name" />
+
+    <div id="movies"></div>
+
+    <div id="search"></div>
+
+    <div id="error"></div>
+</body>
+
+</html>
+<script>
+
+    let movieInList = JSON.parse(localStorage.getItem("list"));
+    let movies_div = document.getElementById("movies");
+    let error = document.getElementById("error");
+    let search = document.getElementById("search");
+
+    movieInList.forEach(function (movie) {
+        // console(movie.Title); 
+
+        let name = document.createElement("p");
+
+        name.textContent =` Title: ${movie.title}`;
+
+        let img = document.createElement("img");
+
+
+        img.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+
+        let release_date = document.createElement("p");
+        release_date.textContent =  ` Release date: ${movie.release_date}`;
+
+        let rating = document.createElement("p");
+        rating.innerHTML = `  Average Rating: ${movie.vote_average}`;
+
+        let overview = document.createElement("p");
+        overview.innerHTML = `Overview:  ${movie.overview}`; 
+
+      
+
+        let div = document.createElement("div");
+
+
+        // append to show movies 
+        div.append(img, name, release_date, rating, overview);
+        search.append(div);
+
+
+    });
+
+
+
+
+
+
+
+</script>
