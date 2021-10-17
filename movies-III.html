@@ -10,8 +10,50 @@
 <link rel="stylesheet" href="movies-III.css">
 
 <body>
+   
     <h3>Movie Search Engine</h3>
+    <div id="register">
+        <div id="signup">
+            <h3>Signup</h3>
+            <form id="signup-form" onsubmit="Signup(event)" action="">
+                <input id="name" type="text" placeholder="Enter Name">
+
+                <input id="email" type="email" placeholder="Enter Email">
+
+                <input id="password" type="password" placeholder="Enter Password">
+
+                <input id="username" type="text" placeholder="enter username">
+
+                <input id="mobile" type="number" placeholder="Enter Number">
+
+                <input id="description" type="text" placeholder="Enter description">
+
+                <input type="submit">
+
+            </form>
+        </div>
+
+        <div id="login">
+            <h3>Login</h3>
+            <form id="login-form" onsubmit="Login(event)" action="">
+
+                <input id="user" type="text" placeholder="enter username">
+
+                <input id="pass" type="password" placeholder="Enter Password">
+
+                <input type="submit">
+
+            </form>
+        </div>
+
+    </div>
+
+    <br>
+    <br>
+   <div id="input">
     <input oninput="debounce(main,2000)" type="text" id="movie" placeholder="Enter movie name" />
+   </div>
+    
 
     <div id="movies"></div>
 

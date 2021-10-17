@@ -6,8 +6,13 @@
     let movies_div = document.getElementById("movies");
     let error = document.getElementById("error");
     let search = document.getElementById("search");
+    let movieinput=document.getElementById("movie").value; 
     async function searchMovie(movie_name) {
         try {
+if(movieinput.value===null) {
+    movieinput.value="trending";
+}
+
             let res = await fetch(`https://api.themoviedb.org/4/list/1?api_key=0c7a0b4b1bf64ab860373f8949655670`);
 
             let data = await res.json();
@@ -124,3 +129,122 @@
 
         localStorage.setItem("list", JSON.stringify(arr));
     }
+
+    function Signup(e) {
+        e.preventDefault();
+        let form = document.getElementById("signup-form");
+
+        let user_data = {                   // spelling should be same as per mocker like
+            name: form.name.value,           // name, email, description etc. 
+            email: form.email.value,
+            mobile: form.mobile.value,
+            password: form.password.value,
+            username: form.username.value,
+            description: form.description.value,
+        };
+        console.log("user_data", user_data);
+
+        // object format to json format for server to red 
+
+        user_data = JSON.stringify(user_data);
+
+        // fetching data from masai api database
+
+        fetch("https://masai-api-mocker.herokuapp.com/auth/register", { // first is url and 2nd is object with standard parameter like method, body, headers etc.  
+
+            method: 'POST',  // sending user data like posting a letter for registeration
+            body: user_data,  // user data details to deliver to address
+
+            headers: {
+                "Content-Type": 'application/json'
+            },
+        })
+            .then((res) => {
+                return res.json();
+
+            })
+            .then((res) => {
+                console.log("res", res);
+
+            })
+            .catch((err) => {
+                console.log("err", err);
+            });
+    }
+    // after register you will get success/failure code 
+
+    // description: "gokuldham"
+    // email: "aryastark@gmail.com"
+    // mobile: "7804040400"
+    // name: "champak"
+    // password: "12345"
+    // username: "champak123"
+
+    //login
+    function Login(e) {
+        e.preventDefault();
+        let form = document.getElementById("login-form");
+
+        let user_data = {
+
+            password: form.pass.value,
+            username: form.user.value,
+
+        };
+
+        let data_to_send = JSON.stringify(user_data);
+        console.log("data_to_send", data_to_send);
+
+        fetch("https://masai-api-mocker.herokuapp.com/auth/login", {
+
+            method: 'POST',  // for the server to verify
+
+            body: data_to_send,
+
+            headers: {
+                "Content-Type": "application/json",
+            },
+
+        })
+            .then((res) => {
+                return res.json();
+
+            })
+            .then((res) => {
+                console.log("res", res);
+                fetchmyData(user_data.username, res.token);
+
+            })
+
+
+            .catch((err) => {
+                console.log("err", err);
+            });
+    }
+
+    function fetchmyData(username, token) {
+        fetch(`https://masai-api-mocker.herokuapp.com/user/${username}`, {
+
+
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+
+        })
+
+            .then((res) => {
+                return res.json();
+
+            })
+            .then((res) => {
+                console.log("res", res);
+
+            })
+
+
+            .catch((err) => {
+                console.log("err", err);
+            });
+
+    } 

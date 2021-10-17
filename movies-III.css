@@ -1,10 +1,10 @@
-body { background-color: darkslategrey;
+body { background-color: darkslateblue;
     color: white; 
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font: size 22px;
     font-weight: 500; 
 }
-input {
+#input input {
     width: 200px;
 }
 
@@ -39,4 +39,36 @@ input {
     margin: 20px;
     height: 600px;
 
+}
+h3{ 
+    text-align: center;
+    margin-bottom: 0; 
+}
+#register {
+    width: 100%;
+    display: flex;
+    margin-top: 0%;
+}
+
+#signup {
+    width: 40%;
+    display: grid;
+    grid-template-columns: 30%;
+    grid-template-rows: repeat(6, auto);
+    gap: 5%;
+    padding: 3%;
+    margin-top: 0%;
+    justify-content: center;
+}
+
+#login {
+    width: 40%;
+    display: grid;
+    grid-template-columns: 30%;
+    grid-template-rows: repeat(2, auto);
+    gap: 5%;
+    padding: 3%;
+    margin-top: 0%;
+    justify-content: left-top;
+    align-items: top;
 }
